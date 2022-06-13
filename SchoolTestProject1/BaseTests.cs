@@ -1,4 +1,5 @@
 ﻿using Homework8;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -11,15 +12,16 @@ namespace SchoolTestProject
     public abstract class BaseTests
     {
         protected School School { get; set; }
+        protected JArray Array { get; set; }
 
         [OneTimeSetUp]
         public void SetupSchool()
         {
             string StudentsstudentsJsonFile = "Students.json";
             School = new School("Sofia High School", "Sofia 1000");
-            Newtonsoft.Json.Linq.JArray array = JsonDataFileReader.GetJArray(StudentsstudentsJsonFile);
+            Array = JsonDataFileReader.GetJArray(StudentsstudentsJsonFile);
 
-            List<Student> students = array.ToObject<List<Student>>();
+            List<Student> students = Array.ToObject<List<Student>>();
             School.AddStudents(students);
         }
     }
